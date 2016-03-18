@@ -11,7 +11,7 @@ add_theme_support('post-thumbnails', array('slider-image'));
 
 
 // Creates FlexiSlide CPT  
-function vcg_fs_register() {  
+function fs_register() {  
     $args = array(  
         'label' => __(CPT_NAME),  
         'singular_label' => __(CPT_SINGLE),  
@@ -25,4 +25,4 @@ function vcg_fs_register() {
        );     
     register_post_type(CPT_TYPE , $args );  
 }  
-add_action('init', 'vcg_fs_register');
+add_action('init', 'fs_register');

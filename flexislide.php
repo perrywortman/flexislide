@@ -1,35 +1,35 @@
 <?php
 
 /*
-Plugin Name: VCG FlexiSlide
-Plugin URI: 
+Plugin Name: FlexiSlide
+Plugin URI: Not yet published
 Description: A custom slider plugin that uses FlexSlider (https://www.woothemes.com/flexslider/)
-Author: Vision Creative Group
-Version: 1.0.0
-Author URI: https://visioncreativegroup.com
+Author: W. Perry Wortman
+Version: 0.1
+Author URI: https://perrywortman.com
 */
 
 
 // Our Constants
-define( 'VCG_FS_PATH', WP_PLUGIN_URL . '/' . plugin_basename( dirname(__FILE__) ) . '/' );
-define( 'VCG_FS_NAME', 'VCG FlexiSlide' );
-define( 'VCG_FS_VERSION', '1.0.0' );
+define( 'FS_PATH', WP_PLUGIN_URL . '/' . plugin_basename( dirname(__FILE__) ) . '/' );
+define( 'FS_NAME', 'VCG FlexiSlide' );
+define( 'FS_VERSION', '1.0.0' );
 
 
 // Load CPT file
-require_once( 'vcg-flexislide-img-type.php' );
+require_once( 'flexislide-img-type.php' );
 
 
 // Enqueue our script and styles
-function vcg_fs_load_scripts() {
-	wp_enqueue_script( 'flexislide', VCG_FS_PATH . 'jquery.flexslider-min.js', array( 'jquery' ) );
-	wp_enqueue_style( 'flexislide', VCG_FS_PATH . 'flexslider.css' );
+function fs_load_scripts() {
+	wp_enqueue_script( 'flexislide', FS_PATH . 'jquery.flexslider-min.js', array( 'jquery' ) );
+	wp_enqueue_style( 'flexislide', FS_PATH . 'flexslider.css' );
 }
-add_action( 'wp_enqueue_scripts', 'vcg_fs_load_scripts' );
+add_action( 'wp_enqueue_scripts', 'fs_load_scripts' );
 
 
 // Load our script in the head - Adjust FlexSlider properties here if needed
-function vcg_fs_script() {
+function fs_script() {
 	print '<script type="text/javascript" charset="utf-8">jQuery(document).ready(function(){ jQuery(".flexslider").flexslider({
 			animation: "slide",
 			animationSpeed: 1000,
@@ -43,11 +43,11 @@ function vcg_fs_script() {
 			}
 	}); } );</script>';
 }
-add_action( 'wp_head', 'vcg_fs_script' );
+add_action( 'wp_head', 'fs_script' );
 
 
 // Fetch and wrap our CPT in FlexSlider markup
-function vcg_fs_get_slider() {
+function fs_get_slider() {
 	$slider = '<div class="flexslider"><ul class="slides">';
     $efs_query = "post_type=slider-image";
     $posts = get_posts( $efs_query );
@@ -65,17 +65,17 @@ function vcg_fs_get_slider() {
 
 
 // Calls our get_slider function
-function vcg_fs_insert_slider( $atts, $content = null ) {
-	$slider = vcg_fs_get_slider();
+function fs_insert_slider( $atts, $content = null ) {
+	$slider = fs_get_slider();
 	return $slider;
 }
 
 
 // Creates our shortcode
-add_shortcode( 'vcg_fs_slider', 'vcg_fs_insert_slider' );
+add_shortcode( 'fs_slider', 'fs_insert_slider' );
 
 
 
-function vcg_fs_slider() {
-	print vcg_fs_get_slider();
+function fs_slider() {
+	print fs_get_slider();
 }
